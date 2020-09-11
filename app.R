@@ -1,59 +1,5 @@
 library(shiny)
 
-withHash <- function(file, directory = "www") {
-  directory <- slashDir(directory)
-  paste0(file, "?", as.character(tools::md5sum(paste0(directory, file))))
-}
-
-hashFiles <- function(files, directory){
-  if (length(files) > 0){
-    sapply(
-      X = files,
-      FUN = withHash,
-      directory = directory,
-      USE.NAMES = FALSE
-    )
-  } else {
-    NULL
-  }
-}
-
-getFullWidgetDir <- function(widgetId){
-  system.file("widgets", widgetId)
-}
-
-
-
-getWidgetDependencies <- function(widgetId,
-                                  jsFiles = NULL,
-                                  cssFiles = NULL,
-                                  version = "1.0.0"){
-  # Directory for md5 check (hash) must be absolute
-  fullDir <- getFullWidgetDir(widgetId)
-  
-  htmltools::htmlDependency(
-    name = widgetId,
-    version = version,
-    src = c(href = paste0("avengers/widgets/", widgetId)),
-    script = hashFiles(
-      files = jsFiles,
-      directory = fullDir
-    ),
-    stylesheet = hashFiles(
-      files = cssFiles,
-      directory = fullDir
-    )
-  )
-}
-
-slashDir <- function(directory){
-  if (!grepl("/$", directory)) {
-    paste0(directory, "/")
-  } else {
-    directory
-  }
-}
-
 selectTag <- function(class, choices = list()) {
   lst <- structure(
     avengersBase::napply(
@@ -76,10 +22,13 @@ selectTag <- function(class, choices = list()) {
 }
 
 gridSelect <- function(inputId, inputData = list()) {
-  dep <- getWidgetDependencies(
-    widgetId = 'gridSelect',
-    jsFiles = c('gridSelect.js'),
-    cssFiles = c('gridSelect.css')
+  widgetId <- 'gridSelect'
+  dep <- htmltools::htmlDependency(
+    name = widgetId,
+    version = '0.0.1',
+    src = c(href = widgetId),
+    script = 'gridSelect.js',
+    stylesheet = 'gridSelect.css'
   )
   if (is.null(inputData$groups) ||
       is.null(inputData$sessionGroups) ||
@@ -255,7 +204,7 @@ server <- function(input, output, session) {
     print(paste("::", count))
     print('---------------------------')
     count <<- count + 1
-    print(input$fooBar)
+    dput(input$fooBar)
   })
 }
 

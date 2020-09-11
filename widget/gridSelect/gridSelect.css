@@ -1,0 +1,129 @@
+body {
+  margin: 10px;
+  font-family: 'Roboto', sans-serif;
+}
+.row-grid-control {
+  max-width: 550px;
+  counter-reset: pair;
+}
+.row-grid-control ul {
+  margin: 0;
+  padding: 0;
+}
+.row-grid-control li {
+  list-style: none;
+}
+.row-grid-control > header ul {
+  display: flex;
+}
+.row-grid-control > header li {
+  flex-grow: 1;
+}
+.row-grid-control > header li {
+  width: 50%;
+}
+.row-grid-control > header li:last-child {
+  padding-left: 24px; /* grid column-gap */
+}
+.row-grid-control > header h6 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+}
+.row-grid-control .grid-control-pair {
+  position: relative;
+}
+.row-grid-control .grid-control-pair {
+  margin-top: 20px;
+}
+.row-grid-control a.remove-pair,
+.row-grid-control a.remove-pair:hover,
+.row-grid-control a.remove-pair:visited {
+  color: #8C9195;
+  text-decoration: none;
+  font-size: 20px;
+}
+.row-grid-control a.remove-pair {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.row-grid-control .grid-control-pair:first-child a.remove-pair {
+  display: none;
+}
+.row-grid-control .grid-control-pair .error-message {
+  display: none;
+}
+.row-grid-control .grid-control-pair .error-message,
+.row-grid-control .grid-control-pair.duplication-pair-error h2,
+.row-grid-control .grid-control-pair.duplication-error label {
+  color: #C02333;
+}
+.row-grid-control .grid-control-pair.duplication-error h2 + .error-message,
+.row-grid-control .grid-control-pair.duplication-pair-error:first-child .error-message:first-child {
+  display: block;
+}
+.row-grid-control .grid-control-pair ul {
+  display: grid;
+  column-gap: 24px;
+  row-gap: 12px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "left_1 right_1"
+    "left_2 right_2"
+    "left_3 right_3"
+    "left_4 right_4";
+}
+
+.grid-control-pair h2 {
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 0;
+}
+.grid-control-pair h2::after {
+  counter-increment: pair;
+  content: counter(pair);
+  padding-left: 5px;
+}
+.grid-control-pair li:nth-child(1) {
+  grid-area: left_1;
+}
+.grid-control-pair li:nth-child(2) {
+  grid-area: left_2;
+}
+.grid-control-pair li:nth-child(3) {
+  grid-area: left_3;
+}
+.grid-control-pair li:nth-child(4) {
+  grid-area: left_4;
+}
+.grid-control-pair li:nth-child(5) {
+  grid-area: right_1;
+}
+.grid-control-pair li:nth-child(6) {
+  grid-area: right_2;
+}
+.grid-control-pair li:nth-child(7) {
+  grid-area: right_3;
+}
+.grid-control-pair li:nth-child(8) {
+  grid-area: right_4;
+}
+.row-grid-control > ul label {
+  font-size: 14px;
+  margin-bottom: 8px;
+  display: block;
+}
+.row-grid-control select {
+  width: 100%;
+}
+.row-grid-control .add {
+  margin-top: 25px;
+  display: block;
+  text-transform: uppercase;
+  color: #007BD9;
+  font: normal normal 500 14px/16px Roboto;
+  cursor: pointer;
+  padding: 12px 8px;
+}
